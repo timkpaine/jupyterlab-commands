@@ -1,96 +1,153 @@
 [build-system]
 requires = [
-    "hatchling>=1.3.1",
+    "hatchling",
+    "hatch-js",
     "jupyterlab>=4,<5",
 ]
 build-backend = "hatchling.build"
 
 [project]
-name = "jupyterlab_commands"
-description = "Arbitrary python commands for notebooks in JupyterLab"
-version = "0.4.0"
-readme = "README.md"
-license = { file = "LICENSE" }
-requires-python = ">=3.7"
+name = "jupyterlab-commands"
 authors = [
-    { name = "Tim Paine" },
+    {name = "the jupyterlab commands authors", email = "t.paine154@gmail.com"},
 ]
-keywords = [
-    "Jupyter",
-    "JupyterLab",
-]
+description = "Arbitrary python commands for notebooks in JupyterLab"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+version = "0.4.0"
+requires-python = ">=3.11"
+keywords = []
+
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 3 - Alpha",
     "Framework :: Jupyter",
     "Framework :: Jupyter :: JupyterLab",
+    "Framework :: Jupyter :: JupyterLab :: 4",
+    "Framework :: Jupyter :: JupyterLab :: Extensions",
+    "Framework :: Jupyter :: JupyterLab :: Extensions :: Prebuilt",
     "Programming Language :: Python",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
-    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
+
 dependencies = [
     "jupyterlab>=4,<5",
 ]
 
 [project.optional-dependencies]
 develop = [
-    "check-manifest",
+    "build",
+    "bump-my-version",
+    "check-dist",
+    "codespell",
+    "hatch-js",
+    "hatchling",
+    "mdformat",
+    "mdformat-tables>=1",
+    "jupyterlab>=4,<5",
+    "pytest",
+    "pytest-cov",
     "ruff",
-    "pytest",
-    "pytest-cov",
+    "twine",
+    "ty",
+    "uv",
+    "wheel",
 ]
-test = [
-    "pytest",
-    "pytest-cov",
-]
+
+[project.scripts]
 
 [project.urls]
-Repository = "https://github.com/timkpaine/jupyterlab_commands"
-Homepage = "https://github.com/timkpaine/jupyterlab_commands"
+Repository = "https://github.com/timkpaine/jupyterlab-commands"
+Homepage = "https://github.com/timkpaine/jupyterlab-commands"
 
-[tool.check-manifest]
-ignore = [
-	"jupyterlab_commands/labextension/**",
-	"js/**"
+[tool.bumpversion]
+current_version = "0.4.0"
+commit = true
+tag = true
+commit_args = "-s"
+
+[[tool.bumpversion.files]]
+filename = "jupyterlab_commands/__init__.py"
+search = '__version__ = "{current_version}"'
+replace = '__version__ = "{new_version}"'
+
+[[tool.bumpversion.files]]
+filename = "pyproject.toml"
+search = 'version = "{current_version}"'
+replace = 'version = "{new_version}"'
+
+[[tool.bumpversion.files]]
+filename = "js/package.json"
+search = '"version": "{current_version}"'
+replace = '"version": "{new_version}"'
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "jupyterlab_commands/tests/integration/",
 ]
+
+[tool.coverage.report]
+exclude_also = [
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "@(abc\\.)?abstractmethod",
+]
+ignore_errors = true
+fail_under = 50
 
 [tool.hatch.build]
 artifacts = [
-    "jupyterlab_commands/labextension"
+    "jupyterlab_commands/nbextension",
+    "jupyterlab_commands/labextension",
+]
+
+[tool.hatch.build.sources]
+src = "/"
+
+[tool.hatch.build.targets.sdist]
+packages = [
+    "jupyterlab_commands",
+    "js",
+]
+exclude = [
+    "js/dist",
+    "js/node_modules",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = [
+    "jupyterlab_commands",
+]
+exclude = [
+    "js"
 ]
 
 [tool.hatch.build.targets.wheel.shared-data]
-"jupyterlab_commands/labextension" = "share/jupyter/labextensions/jupyterlab_commands"
-"jupyterlab_commands/extension/install.json" = "share/jupyter/labextensions/jupyterlab_commands/install.json"
+"jupyterlab_commands/labextension" = "share/jupyter/labextensions/jupyterlab-commands"
+"jupyterlab_commands/extension/install.json" = "share/jupyter/labextensions/jupyterlab-commands/install.json"
 "jupyterlab_commands/extension/jupyterlab_commands.json" = "etc/jupyter/jupyter_server_config.d/jupyterlab_commands.json"
-"jupyterlab_commands/extension/notebook_commands" = "share/jupyter/notebook"
 
-[tool.hatch.build.targets.sdist]
-exclude = [
-    ".github",
-    "binder",
-    "docs",
-]
-
-[tool.hatch.build.hooks.jupyter-builder]
-build-function = "hatch_jupyter_builder.npm_builder"
-ensured-targets = [
-    "jupyterlab_commands/labextension/package.json",
-]
-skip-if-exists = [
-    "jupyterlab_commands/labextension/package.json",
-]
-dependencies = [
-    "hatch-jupyter-builder>=0.5.0",
-]
-
-[tool.hatch.build.hooks.jupyter-builder.build-kwargs]
+[tool.hatch.build.hooks.hatch-js]
 path = "js"
 build_cmd = "build"
+tool = "pnpm"
+targets = [
+    "jupyterlab_commands/nbextension/static/notebook.js",
+    "jupyterlab_commands/labextension/package.json",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+    "-vvv",
+    "--junitxml=junit.xml",
+]
+testpaths = "jupyterlab_commands/tests"
 
 [tool.ruff]
 line-length = 120
@@ -98,7 +155,9 @@ line-length = 120
 [tool.ruff.lint.isort]
 combine-as-imports = true
 default-section = "third-party"
-known-first-party = ["jupyterlab_commands"]
+known-first-party = [
+    "jupyterlab_commands",
+]
 section-order = [
     "future",
     "standard-library",
@@ -108,4 +167,7 @@ section-order = [
 ]
 
 [tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["F401", "F403"]
+"__init__.py" = [
+    "F401",
+    "F403",
+]

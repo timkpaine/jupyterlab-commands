@@ -1,19 +1,13 @@
 import {Dialog, ICommandPalette, showDialog} from "@jupyterlab/apputils";
-
 import {PageConfig} from "@jupyterlab/coreutils";
-
 import {IDocumentManager} from "@jupyterlab/docmanager";
-
 import {IFileBrowserFactory} from "@jupyterlab/filebrowser";
-
 import {ILauncher} from "@jupyterlab/launcher";
-
 import {request} from "requests-helper";
 
 import "../style/index.css";
 
 async function activate(app, docManager, palette, browser) {
-  // grab templates from serverextension
   const res = await request("get", `${PageConfig.getBaseUrl()}commands/get`);
   if (res.ok) {
     const commands = res.json();
@@ -33,11 +27,9 @@ async function activate(app, docManager, palette, browser) {
           let body = "An unexpected error occurred";
 
           try {
-            // Try to execute command, and show dialog with info when done
             const folder = browser.tracker.currentWidget.model.path || "";
 
             if (!app.shell.currentWidget) {
-              // need a current widget
               return;
             }
 
