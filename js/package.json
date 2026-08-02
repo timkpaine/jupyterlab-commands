@@ -45,18 +45,24 @@
   "dependencies": {
     "@jupyterlab/application": "^4.5.7",
     "@jupyterlab/apputils": "^4.6.7",
+<<<<<<< before updating
     "@jupyterlab/coreutils": "^6.5.7",
     "@jupyterlab/docmanager": "^4.5.7",
     "@jupyterlab/filebrowser": "^4.5.7",
     "@jupyterlab/launcher": "^4.5.7",
     "requests-helper": "^0.1.5"
+=======
+    "@jupyterlab/notebook": "^4.5.7",
+    "@jupyterlab/services": "^7.5.10",
+    "@lumino/disposable": "^2.1.5"
+>>>>>>> after updating
   },
   "devDependencies": {
     "@babel/cli": "^7.28.6",
     "@babel/core": "^7.29.0",
     "@babel/eslint-parser": "^7.28.6",
-    "@babel/preset-env": "^7.29.2",
-    "@jupyterlab/builder": "^4.5.6",
+    "@babel/preset-env": "^7.29.3",
+    "@jupyterlab/builder": "^4.5.10",
     "babel-jest": "^30.4.1",
     "cpy-cli": "^7.0.0",
     "eslint": "^8.57.1",
@@ -64,7 +70,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-jest": "^29.12.1",
+    "eslint-plugin-jest": "^29.16.0",
     "eslint-plugin-json": "^3.1.0",
     "eslint-plugin-prettier": "^5.5.4",
     "isomorphic-fetch": "^3.0.0",
@@ -73,7 +79,7 @@
     "jest-junit": "^17.0.0",
     "jest-transform-css": "^6.0.3",
     "mkdirp": "^3.0.1",
-    "prettier": "^3.8.1",
+    "prettier": "^3.9.6",
     "rimraf": "^6.1.3"
   }
 }
