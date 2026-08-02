@@ -45,17 +45,11 @@
   "dependencies": {
     "@jupyterlab/application": "^4.5.7",
     "@jupyterlab/apputils": "^4.6.7",
-<<<<<<< before updating
     "@jupyterlab/coreutils": "^6.5.7",
     "@jupyterlab/docmanager": "^4.5.7",
     "@jupyterlab/filebrowser": "^4.5.7",
     "@jupyterlab/launcher": "^4.5.7",
     "requests-helper": "^0.1.5"
-=======
-    "@jupyterlab/notebook": "^4.5.7",
-    "@jupyterlab/services": "^7.5.10",
-    "@lumino/disposable": "^2.1.5"
->>>>>>> after updating
   },
   "devDependencies": {
     "@babel/cli": "^7.28.6",
