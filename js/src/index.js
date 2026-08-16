@@ -7,6 +7,7 @@ import {request} from "requests-helper";
 
 import "../style/index.css";
 
+<<<<<<< before updating
 async function activate(app, docManager, palette, browser) {
   const res = await request("get", `${PageConfig.getBaseUrl()}commands/get`);
   if (res.ok) {
@@ -80,6 +81,11 @@ async function activate(app, docManager, palette, browser) {
 
   // eslint-disable-next-line no-console
   console.log("JupyterLab extension jupyterlab_commands is activated!");
+=======
+async function activate(_app) {
+  // oxlint-disable-next-line no-console
+  console.log("JupyterLab extension jupyterlab-commands is activated!");
+>>>>>>> after updating
 }
 
 const extension = {
