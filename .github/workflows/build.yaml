@@ -84,7 +84,7 @@ jobs:
           module: jupyterlab_commands
 
       - name: Test source distribution
-        uses: actions-ext/python/test-sdist@6e1b91a408ea89f49bc8aff8724f83826f7b5446
+        uses: actions-ext/python/test-sdist@ec67f82b3bd863948308a41ecb9e70547cbb19c7
         with:
           module: jupyterlab_commands
 
