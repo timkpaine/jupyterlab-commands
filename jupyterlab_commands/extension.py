@@ -7,7 +7,7 @@ from jupyter_server.utils import url_path_join
 
 class CommandsHandler(JupyterHandler):
     def initialize(self, commands=None):
-        self.commands = commands
+        self.commands = commands or {}
 
     @tornado.web.authenticated
     def get(self):
@@ -30,7 +30,7 @@ class CommandsHandler(JupyterHandler):
 
 class CommandsListHandler(JupyterHandler):
     def initialize(self, commands=None):
-        self.commands = commands
+        self.commands = commands or {}
 
     @tornado.web.authenticated
     def get(self):
